@@ -412,7 +412,7 @@
         // --- State Variables ---
         let currentQuestionIndex = 0;
         let score = 0;
-        let timeLeft = 15;
+        let timeLeft = 20;
         let timerInterval;
         let isAnswered = false;
 
@@ -488,7 +488,7 @@
         }
 
         function updateTimerUI() {
-            const percentage = (timeLeft / 15) * 100;
+            const percentage = (timeLeft / 20) * 100;
             timerBar.style.width = `${percentage}%`;
             
             if (timeLeft <= 5) {
