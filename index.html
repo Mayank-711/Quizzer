@@ -138,6 +138,21 @@
             color: var(--text-muted);
         }
 
+        #timer-display {
+            color: var(--primary);
+            font-weight: 600;
+            background: var(--bg-color);
+            padding: 5px 10px;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+        }
+
+        #timer-display.warning {
+            color: var(--error);
+            background: rgba(218, 54, 51, 0.1);
+            border-color: var(--error);
+        }
+
         .timer-bar {
             height: 4px;
             background: var(--bg-color);
@@ -294,6 +309,7 @@
         <div class="screen" id="quiz-screen">
             <div class="quiz-header">
                 <span id="question-counter">Question 1 of 15</span>
+                <span id="timer-display">Time: 20s</span>
                 <span id="score-counter">Score: 0</span>
             </div>
 
@@ -426,6 +442,7 @@
         const questionCounter = document.getElementById('question-counter');
         const scoreCounter = document.getElementById('score-counter');
         const timerBar = document.getElementById('timer-bar');
+        const timerDisplay = document.getElementById('timer-display');
 
         // --- Logic ---
 
@@ -475,6 +492,8 @@
             clearInterval(timerInterval);
             timerBar.style.width = '100%';
             timerBar.style.backgroundColor = 'var(--primary)';
+            timerDisplay.textContent = `Time: ${timeLeft}s`;
+            timerDisplay.classList.remove('warning');
             
             timerInterval = setInterval(() => {
                 timeLeft--;
@@ -491,8 +510,14 @@
             const percentage = (timeLeft / 20) * 100;
             timerBar.style.width = `${percentage}%`;
             
+            // Update numerical timer display
+            timerDisplay.textContent = `Time: ${timeLeft}s`;
+            
             if (timeLeft <= 5) {
                 timerBar.style.backgroundColor = 'var(--error)';
+                timerDisplay.classList.add('warning');
+            } else {
+                timerDisplay.classList.remove('warning');
             }
         }
 
